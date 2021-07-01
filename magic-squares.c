@@ -50,8 +50,12 @@ int main(int argc, char *argv[]) {
     // doubly-even matrix
     if (size % 4 == 0) {
 
+        generate_doubly_even_magic_square(size, magic_square);
+
     // singly-even matrix
     } else if (size % 2 == 0) {
+
+        generate_singly_even_magic_square(size, magic_square);
 
     // odd matrix
     } else if (size % 2 == 1) {

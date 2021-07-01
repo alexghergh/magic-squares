@@ -49,6 +49,15 @@ long long parse_input(const char *arg);
 
 /*
  *
+ */
+void generate_doubly_even_magic_square(long long size, long long *magic_square);
+
+/*
+ *
+ */
+void generate_singly_even_magic_square(long long size, long long *magic_square);
+
+/*
  *
  */
 void generate_odd_magic_square(long long size, long long *magic_square);
