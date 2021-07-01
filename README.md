@@ -62,3 +62,7 @@ If you see any errors or feel like something could be improved in any way,
 please open a pull request.
 
 Author and maintainer: Alexandru Gherghescu (alexghergh@gmail.com)
+
+## License
+
+The project is licensed under the MIT license. See LICENSE for more info.
