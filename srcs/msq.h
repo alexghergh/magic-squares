@@ -55,6 +55,12 @@ void generate_magic_square(unsigned long long size, unsigned long long *magic_sq
  * adjacent cells are different.
  *
  * The method requires that a correct array is passed to it (see above).
+ *
+ * Note: This method might not correctly return the result due to overflow
+ * in the sum calculation. The method does not detect this behaviour.
+ * However, it is easy to check if an overflow will occur. If sigma, which is
+ * equal to _size * (size ^ 2 + 1) / 2_ does not fit in an unsigned long long,
+ * then it will almost surely overflow.
  */
 bool is_magic_square(unsigned long long size, unsigned long long *magic_square);
 
