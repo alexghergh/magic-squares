@@ -40,12 +40,15 @@ int main(int argc, char *argv[]) {
     errno = 0;
 
     // allocate memory for the matrix
-    magic_square = malloc(sizeof(long long) * size);
+    magic_square = malloc(sizeof(long long) * size * size);
 
     if (magic_square == NULL && errno == ENOMEM) {
         printf("Error: Out of memory! Quitting!\n");
         exit(EXIT_FAILURE);
     }
+
+    // set the matrix memory to 0
+    memset(magic_square, 0, size);
 
     // doubly-even matrix
     if (size % 4 == 0) {
@@ -62,6 +65,8 @@ int main(int argc, char *argv[]) {
 
         generate_odd_magic_square(size, magic_square);
     }
+
+    free(magic_square);
 
     return 0;
 }

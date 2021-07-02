@@ -44,15 +44,36 @@ limit, i.e. the maximum number squared that can fit inside an 8-byte integer
 Realistically speaking though, your computer will run out of memory way
 before the magic square matrix is computed.
 
-#### Odd numbers
+#### Odd-sized magic squares
 
 There are various methods to compute an odd-sized magic square matrix. The one
 we will implement is _Uniform Step Method_ (p. 9). Refer to the paper for a
 complete explanation on how the method works.
 
-#### Even numbers divisible by 4 (doubly-even)
+Magic squares of odd-numbers can be easily generated using the _Uniform Step
+Method_ by altering 6 parameters. These parameters (presented in the paper,
+see paragraph above), need to respect some properties for the square to be
+"magic". The 6 parameters are **p**, **q** (the initial starting row and column),
+**alpha** and **beta** (the step or distance to go from the element _n_ to element
+_n + 1_), and **a** and **b** (the "offset" for a colliding element). From the
+paper, _"The square formed by this method is magic if and only if a, b, alpha,
+beta, and (alpha * b - a * beta) are each relatively prime to n)."_. In formula,
+this is equivalent to (note, _"(m, n)"_ denotes the greatest common divisor):
 
-#### Even numbers not divisible by 4 (singly-even)
+```
+(a, n) = 1
+(b, n) = 1
+(alpha, n) = 1
+(beta, n) = 1
+(alpha * b - a * beta, n) = 1
+```
+
+So if the 6 variables mentioned above respect these properties, than the matrix
+will be a magic square.
+
+#### Even-sized magic squares divisible by 4 (doubly-even)
+
+#### Even-sized magic squares not divisible by 4 (singly-even)
 
 ### Other notes
 

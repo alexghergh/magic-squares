@@ -30,6 +30,7 @@
 #include <errno.h>
 #include <limits.h>
 #include <stdint.h>
+#include <string.h>
 
 #define MIN_MATRIX_SIZE 3
 
