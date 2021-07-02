@@ -59,7 +59,17 @@ void generate_doubly_even_magic_square(long long size, long long *magic_square);
 void generate_singly_even_magic_square(long long size, long long *magic_square);
 
 /*
+ * This function takes an odd number and generates a magic square in the
+ * array pointed to by magic_square. The function requires that magic_square
+ * is 0-initialized when it is called.
  *
+ * !! THE FUNCTION DOESN'T DO ANY SANITY CHECKS !!
+ *
+ * If the size is not an odd number greater than 3 or magic_square is not
+ * 0-initialized, the behavior is undefined.
+ *
+ * If magic_square is not an array containing at least size * size bytes,
+ * the behavior is undefined.
  */
 void generate_odd_magic_square(long long size, long long *magic_square);
 
