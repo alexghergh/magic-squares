@@ -27,8 +27,6 @@
 
 #include <stdbool.h>
 
-#define MIN_MATRIX_SIZE 3
-
 /*
  * Generate a magic square of the size given by the first parameter. The magic
  * square is generated in the second parameter, which must be a pointer to an
@@ -59,5 +57,14 @@ void generate_magic_square(unsigned long long size, unsigned long long *magic_sq
  * The method requires that a correct array is passed to it (see above).
  */
 bool is_magic_square(unsigned long long size, unsigned long long *magic_square);
+
+/*
+ * Display a magic square on the standard output.
+ *
+ * This method requires the same properties as the above methods, i.e. care
+ * must be taken when passing a pointer to an array as paramter. The method
+ * does no sanity checks.
+ */
+void print_magic_square(unsigned long long size, unsigned long long *magic_square);
 
 #endif

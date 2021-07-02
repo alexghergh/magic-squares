@@ -23,7 +23,6 @@
  */
 
 #include "magic-squares.h"
-#include "srcs/generate.h"
 
 int main(int argc, char *argv[]) {
 
@@ -52,6 +51,8 @@ int main(int argc, char *argv[]) {
     memset(magic_square, 0, size * size);
 
     generate_magic_square(size, magic_square);
+
+    print_magic_square(size, magic_square);
 
     free(magic_square);
 
