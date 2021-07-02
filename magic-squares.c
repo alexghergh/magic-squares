@@ -23,6 +23,7 @@
  */
 
 #include "magic-squares.h"
+#include "srcs/generate.h"
 
 int main(int argc, char *argv[]) {
 
@@ -31,8 +32,8 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    long long *magic_square;
-    long long size;
+    unsigned long long *magic_square;
+    unsigned long long size;
 
     size = parse_input(argv[1]);
 
@@ -40,7 +41,7 @@ int main(int argc, char *argv[]) {
     errno = 0;
 
     // allocate memory for the matrix
-    magic_square = malloc(sizeof(long long) * size * size);
+    magic_square = malloc(sizeof(unsigned long long) * size * size);
 
     if (magic_square == NULL && errno == ENOMEM) {
         printf("Error: Out of memory! Quitting!\n");
@@ -50,21 +51,7 @@ int main(int argc, char *argv[]) {
     // set the matrix memory to 0
     memset(magic_square, 0, size);
 
-    // doubly-even matrix
-    if (size % 4 == 0) {
-
-        generate_doubly_even_magic_square(size, magic_square);
-
-    // singly-even matrix
-    } else if (size % 2 == 0) {
-
-        generate_singly_even_magic_square(size, magic_square);
-
-    // odd matrix
-    } else if (size % 2 == 1) {
-
-        generate_odd_magic_square(size, magic_square);
-    }
+    generate_magic_square(size, magic_square);
 
     free(magic_square);
 
@@ -77,11 +64,11 @@ void print_usage() {
 
 long long parse_input(const char *arg) {
     char *check;
-    long long ret;
+    unsigned long long ret;
 
     // set errno to 0 before the call, see strtoll(1)
     errno = 0;
-    ret = strtoll(arg, &check, 10);
+    ret = strtoull(arg, &check, 10);
 
     if (ret < MIN_MATRIX_SIZE) {
         printf("Warning: Matrix size cannot be smaller than 3! Continuing with size 3.\n");
