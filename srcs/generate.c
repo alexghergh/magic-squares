@@ -22,17 +22,17 @@
  * SOFTWARE.
  */
 
-#include "magic-squares.h"
+#include "generate.h"
 
-void generate_doubly_even_magic_square(long long size, long long *magic_square) {
+static void _generate_doubly_even_magic_square(unsigned long long size, unsigned long long *magic_square) {
     ;
 }
 
-void generate_singly_even_magic_square(long long size, long long *magic_square) {
+static void _generate_singly_even_magic_square(unsigned long long size, unsigned long long *magic_square) {
     ;
 }
 
-void generate_odd_magic_square(long long size, long long *magic_square) {
+static void _generate_odd_magic_square(unsigned long long size, unsigned long long *magic_square) {
     /*
      * Refer to the original paper for information on what these variables mean.
      *
@@ -63,12 +63,33 @@ void generate_odd_magic_square(long long size, long long *magic_square) {
     b = 0;
 
     while (counter - 1 != size * size) {
-
         // calculate the correct indices for the row and column
-        long long curr_row = (p + alpha * (counter - 1) + a * ((counter - 1) / size)) % size;
-        long long curr_col = (q + beta * (counter - 1) + b * ((counter - 1) / size)) % size;
+        unsigned long long curr_row = (p + alpha * (counter - 1) + a * ((counter - 1) / size)) % size;
+        unsigned long long curr_col = (q + beta * (counter - 1) + b * ((counter - 1) / size)) % size;
 
         // place an element
         magic_square[curr_row * size + curr_col] = counter++;
+    }
+}
+
+/*
+ * Interface.
+ */
+
+void generate_magic_square(unsigned long long size, unsigned long long *magic_square) {
+    // doubly-even matrix
+    if (size % 4 == 0) {
+
+        _generate_doubly_even_magic_square(size, magic_square);
+
+    // singly-even matrix
+    } else if (size % 2 == 0) {
+
+        _generate_singly_even_magic_square(size, magic_square);
+
+    // odd matrix
+    } else if (size % 2 == 1) {
+
+        _generate_odd_magic_square(size, magic_square);
     }
 }

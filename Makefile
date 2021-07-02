@@ -24,22 +24,33 @@
 
 CC = gcc
 
-SRCS = magic-squares.c generate.c
+SRCS_DIR = srcs
+SRCS = $(wildcard $(SRCS_DIR)/*.c)
 OBJS = $(patsubst %.c, %.o, $(SRCS))
-INCLUDES = magic-squares.h
+INCLUDES_DIR = $(SRCS_DIR)
 
 EXEC = magic-squares
 
-all: $(EXEC)
+DYN_LIB = lib$(EXEC).so
+
+all: $(DYN_LIB)
 
 %.o: %.c
-	$(CC) -o $@ -c $<
+	$(CC) -fPIC -o $@ -c $< -I$(INCLUDES_DIR)
 
-$(EXEC): $(OBJS) $(INCLUDES)
-	$(CC) -o $@ $^ -I.
+$(DYN_LIB): $(OBJS)
+	$(CC) -shared -o $(DYN_LIB) $^
+
+magic-squares.o: magic-squares.c
+	$(CC) -c $< -o $@
+
+$(EXEC): magic-squares.o $(DYN_LIB)
+	$(CC) -L. -o $@ $< -l$(EXEC)
 
 clean:
 	rm -rf $(OBJS)
+	rm -rf $(DYN_LIB)
 	rm -rf $(EXEC)
+	rm -rf magic-squares.o
 
 re: clean all
