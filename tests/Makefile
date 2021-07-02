@@ -23,43 +23,22 @@
 #
 
 CC = gcc
+LINKER_FLAGS = -lcmocka
 
-SRCS_DIR = srcs
-SRCS = $(wildcard $(SRCS_DIR)/*.c)
+SRCS = $(wildcard *.c)
 OBJS = $(patsubst %.c, %.o, $(SRCS))
-INCLUDES_DIR = $(SRCS_DIR)
+TEST_EXEC = test-magic-squares
 
-EXEC = magic-squares
-
-TESTS_DIR = tests
-TEST_EXEC = test-$(EXEC)
-
-DYN_LIB = lib$(EXEC).so
-
-all: $(DYN_LIB)
+all: $(TEST_EXEC)
 
 %.o: %.c
-	$(CC) -fPIC -o $@ -c $< -I$(INCLUDES_DIR)
+	$(CC) -o $@ -c $< $(LINKER_FLAGS)
 
-$(DYN_LIB): $(OBJS)
-	$(CC) -shared -o $(DYN_LIB) $^
-
-magic-squares.o: magic-squares.c
-	$(CC) -c $< -o $@
-
-$(EXEC): magic-squares.o $(DYN_LIB)
-	$(CC) -L. -o $@ $< -l$(EXEC)
-
-run-tests: all $(TESTS_DIR)
-	$(MAKE) -C $(TESTS_DIR)
-	LD_LIBRARY_PATH=. ./$(TESTS_DIR)/$(TEST_EXEC)
-	$(MAKE) -C $(TESTS_DIR) $(TEST_CLEAN)
+$(TEST_EXEC): $(OBJS)
+	$(CC) -o $@ $^ $(LINKER_FLAGS) -L.. -lmagic-squares
 
 clean:
-	$(MAKE) -C $(TESTS_DIR) clean
 	rm -rf $(OBJS)
-	rm -rf $(DYN_LIB)
-	rm -rf $(EXEC)
-	rm -rf magic-squares.o
+	rm -rf $(TEST_EXEC)
 
 re: clean all

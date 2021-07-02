@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-#include "generate.h"
+#include "msq.h"
 
 static void _generate_doubly_even_magic_square(unsigned long long size, unsigned long long *magic_square) {
     ;
@@ -59,8 +59,8 @@ static void _generate_odd_magic_square(unsigned long long size, unsigned long lo
     alpha = size - 1;
     beta = 1;
 
-    a = 1;
-    b = 0;
+    a = 2;
+    b = size - 1;
 
     while (counter - 1 != size * size) {
         // calculate the correct indices for the row and column

@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
     }
 
     // set the matrix memory to 0
-    memset(magic_square, 0, size);
+    memset(magic_square, 0, size * size);
 
     generate_magic_square(size, magic_square);
 

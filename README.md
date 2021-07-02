@@ -3,7 +3,7 @@
 ## Introduction
 
 This repo implements the methods described in [Matrix Properties of Magic
-Squares](https://faculty.etsu.edu/stephen/matrix-magic-squares.pdf) to generate matrix squares of any size.
+Squares](https://faculty.etsu.edu/stephen/matrix-magic-squares.pdf) to generate magic squares of any size.
 
 Throughout this README, I will refer to a certain page of the paper above by
 using `(p. <page-number>)`.
@@ -42,9 +42,9 @@ The maximum supported limits of the matrix size are 3 for the inferior limit
 limit, i.e. the maximum number squared that can fit inside an 8-byte integer
 (for 64-bit machines), or 45000 for a 4-byte integer (for 32-bit machines).
 Realistically speaking though, your computer will run out of memory way
-before the magic square matrix is computed.
+before this limit is reached.
 
-#### Odd-sized magic squares
+### Odd-sized magic squares
 
 There are various methods to compute an odd-sized magic square matrix. The one
 we will implement is _Uniform Step Method_ (p. 9). Refer to the paper for a
@@ -71,11 +71,67 @@ this is equivalent to (note, _"(m, n)"_ denotes the greatest common divisor):
 So if the 6 variables mentioned above respect these properties, than the matrix
 will be a magic square.
 
-#### Even-sized magic squares divisible by 4 (doubly-even)
+### Even-sized magic squares divisible by 4 (doubly-even)
 
-#### Even-sized magic squares not divisible by 4 (singly-even)
+(TODO)
 
-### Other notes
+### Even-sized magic squares not divisible by 4 (singly-even)
+
+(TODO)
+
+## Running and testing the program
+
+The repository contains a simple Makefile, which can be used to run the program.
+
+The Makefile generates a dynamically linked shared library by default, which can
+be used in your own program to generate a magic square.
+
+The files `magic-square.c` and `magic-square.h` demonstrate how to use the
+shared library. Please note that the library does little to no sanity checks,
+and so the responsibility is on the caller program to make sure the memory
+is safely allocated and contains only 0's when calling the magic square
+generation method. For more information read the notes in `srcs/msq.h`. This
+file also stands as an API interface reference.
+
+To generate the shared library, do:
+
+`make`
+
+To generate the example program:
+
+`make magic-squares`
+
+And then running it is as simple as:
+
+`LD_LIBRARY_PATH=<path/to/the/shared/library> ./magic_squares <number>`
+
+Note how we had to let the linker know where it can find our library.
+
+Unless you changed directories, the command just resumes to:
+
+`LD_LIBRARY_PATH=. ./magic_squares <number>`
+
+### Testing
+
+The program contains unit tests, which check if the matrices generated are
+indeed magic squares, that respect the properties outlined in the beginning
+of this file.
+
+The unit test framework used is [cmocka](https://cmocka.org).
+
+To run the tests, you will need to install cmocka. Follow the instructions
+at [the official cmocka GitLab repo](https://gitlab.com/cmocka/cmocka/-/blob/master/INSTALL.md) to install the library.
+
+After having it installed, just run:
+
+`make run_tests`
+
+The above command should give you an output with tests that failed/passed.
+
+If any of the tests fail, consider opening an issue with the output on the
+[official Github repo of the project](https://github.com/alexghergh/magic-squares).
+
+## Other notes
 
 The code should be fully C99-compatible.
 
@@ -86,4 +142,4 @@ Author and maintainer: Alexandru Gherghescu (alexghergh@gmail.com)
 
 ## License
 
-The project is licensed under the MIT license. See LICENSE for more info.
+The project is licensed under the MIT license. See [LICENSE](https://github.com/alexghergh/magic-squares/blob/master/LICENSE) for more info.
